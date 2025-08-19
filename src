@@ -1,0 +1,136 @@
+# E-Library Book Management System
+# Features: Add, Borrow, Return, Undo last action, Search/Filter
+# Data Structures: Linked List (Inventory), Stack (Undo)
+
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.is_borrowed = False
+        self.next = None  # For linked list
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_book(self, title, author):
+        """Add a new book to inventory"""
+        new_book = Book(title, author)
+        if not self.head:
+            self.head = new_book
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_book
+        print(f'✅ Book "{title}" by {author} added to inventory.')
+
+    def search(self, keyword):
+        """Search books by title or author"""
+        current = self.head
+        found = []
+        while current:
+            if keyword.lower() in current.title.lower() or keyword.lower() in current.author.lower():
+                status = "Borrowed" if current.is_borrowed else "Available"
+                found.append(f"{current.title} by {current.author} [{status}]")
+            current = current.next
+        return found if found else ["No matching books found."]
+
+    def display_books(self):
+        """Display all books in inventory"""
+        current = self.head
+        if not current:
+            print("📚 No books in inventory.")
+            return
+        print("\n📚 E-Library Inventory:")
+        while current:
+            status = "Borrowed" if current.is_borrowed else "Available"
+            print(f"- {current.title} by {current.author} [{status}]")
+            current = current.next
+
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, action):
+        self.stack.append(action)
+
+    def pop(self):
+        return self.stack.pop() if self.stack else None
+
+
+class ELibrary:
+    def __init__(self):
+        self.inventory = LinkedList()
+        self.undo_stack = Stack()
+
+    def borrow_book(self, title):
+        current = self.inventory.head
+        while current:
+            if current.title.lower() == title.lower() and not current.is_borrowed:
+                current.is_borrowed = True
+                self.undo_stack.push(("borrow", current))
+                print(f'📕 You borrowed "{current.title}".')
+                return
+            current = current.next
+        print(f'❌ Book "{title}" not available or already borrowed.')
+
+    def return_book(self, title):
+        current = self.inventory.head
+        while current:
+            if current.title.lower() == title.lower() and current.is_borrowed:
+                current.is_borrowed = False
+                self.undo_stack.push(("return", current))
+                print(f'📗 You returned "{current.title}".')
+                return
+            current = current.next
+        print(f'❌ Book "{title}" not borrowed or not found.')
+
+    def undo_last_action(self):
+        action = self.undo_stack.pop()
+        if not action:
+            print("⚠️ Nothing to undo.")
+            return
+        act, book = action
+        if act == "borrow":
+            book.is_borrowed = False
+            print(f'↩️ Undo: Borrow of "{book.title}" has been reverted.')
+        elif act == "return":
+            book.is_borrowed = True
+            print(f'↩️ Undo: Return of "{book.title}" has been reverted.')
+
+    def search_books(self, keyword):
+        results = self.inventory.search(keyword)
+        print("\n🔍 Search Results:")
+        for book in results:
+            print(f"- {book}")
+
+
+# -----------------------
+# Example usage
+# -----------------------
+if __name__ == "__main__":
+    lib = ELibrary()
+
+    # Adding books
+    lib.inventory.add_book("Python Programming", "John Doe")
+    lib.inventory.add_book("Machine Learning", "Jane Smith")
+    lib.inventory.add_book("Data Science 101", "Alice Brown")
+
+    lib.inventory.display_books()
+
+    # Borrow and Return
+    lib.borrow_book("Python Programming")
+    lib.inventory.display_books()
+
+    lib.return_book("Python Programming")
+    lib.inventory.display_books()
+
+    # Undo last action
+    lib.undo_last_action()
+    lib.inventory.display_books()
+
+    # Search feature
+    lib.search_books("machine")
