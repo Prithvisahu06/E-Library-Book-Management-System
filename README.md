@@ -1,40 +1,38 @@
-# E-Library Book Management System 📚
+# E-Library Book Management System 
 
-A command-line based E-Library Management System built with Python. This project demonstrates the use of fundamental data structures to manage a digital book inventory, allowing users to add, borrow, return, and search for books.
-
----
-
-## ✨ Key Features
-
-* **Add Books**: Easily add new books to the library's inventory.
-* **Borrow & Return**: Manage the status of books by borrowing and returning them.
-* **Undo Last Action**: Made a mistake? The system uses a stack to allow you to undo the last borrow or return action.
-* **Search/Filter**: Quickly find books by searching for keywords in their title or author's name.
-* **Display Inventory**: View a complete list of all books in the library and their current availability status.
+A command-line E-Library Management System developed using Python. The project illustrates the application of basic data structures for handling an electronic book collection where users can add, borrow, return, and search for books.
 
 ---
 
-## 🧠 Data Structures Used
+## Key Features
 
-This project is a practical implementation of two core data structures:
-
-* **Linked List**: The entire book inventory is managed using a custom-built Linked List. This structure efficiently handles the dynamic addition of new books.
-* **Stack**: The "Undo" feature is powered by a Stack. Every time a book is borrowed or returned, the action is pushed onto the stack, allowing the last operation to be easily reversed.
+* **Add Books**:Quickly add new books to the library's collection.
+* **Borrow & Return**: Handle the availability of books by borrowing and returning them.
+* **Undo Last Action**:Did you make a mistake? The system utilizes a stack in order to let you undo the last return or borrow action.
+* **Search/Filter**: Get to books quickly by searching for keywords in the title or author name.
+* **Display Inventory**:  See a list of all the books in the library and their availability status.
 
 ---
 
-## 🚀 How to Use
+## Data Structures That Are Used
 
-1.  **Prerequisites**: Ensure you have Python 3 installed.
-2.  **Run the Script**: Execute the Python file directly from your terminal:
+This project is a real-world example of two fundamental data structures:
+
+* **Linked List**: The whole book catalog is handled using a self-made Linked List. This data structure effectively deals with the dynamic insertion of new books.
+* **Stack**:  The "Undo" functionality is driven by a Stack. Each time a book is borrowed or returned, the operation is pushed onto the stack, making it possible to reverse the previous action with ease.
+---
+
+### How to Use
+
+1.  **Prerequisites**: Make sure you have Python 3 installed.
+2.  **Run the Script**: Simply run the Python script directly from your command line:
     ```bash
     python your_script_name.py
     ```
-3.  **View the Output**: The script will run through a pre-defined set of example operations (adding, borrowing, returning, undoing, and searching) and print the results to the console.
-
+3.  **See the Output**: The script will iterate over a predefined list of sample operations (adding, borrowing, returning, undoing, and searching) and output the results to the console.
 ---
 
-## 🛠️ Built With
+## Built With
 
-* **Python 3** (No external libraries required)
+* **Python 3** (No external libraries needed)
 
